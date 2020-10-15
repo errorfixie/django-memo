@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+    {% block title %}
+        <title>디테일</title>
+    {% endblock title %}
+
+    {% block content %}
+        <h1>디테일</h1>
+
+
+            <h3>제목 : {{object.memoNUM.title}}</h3>
+            <p>내용 : {{object.memoNUM.contents}}</p>
+            유저 : {{object.userNUM}}<br>
+            작성일시 : {{object.memoNUM.memodate}}<br>
+            작성번호 : {{object.memoNUM.pk}}<br>
+
+        
+
+    {% endblock content %}
