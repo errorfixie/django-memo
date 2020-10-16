@@ -8,7 +8,17 @@ from .forms import MemoCreateForm
 # 메모리스트
 class MemoListView(ListView):
     model = Usermemo
-    template_name = 'memo/memolist.html'
+    template_name = 'list.html'
+    context_object_name='memolist'
+
+    
+    def get_queryset(self):
+        """Return the last five published questions."""
+        return Question.objects.order_by('-pub_date')[:5]
+
+class MemoHomeListView(ListView):
+    model = Usermemo
+    template_name = 'home.html'
     context_object_name='memolist'
 
 # 메모상세

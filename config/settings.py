@@ -133,7 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 AUTH_USER_MODEL = 'user.User' #abstractUser쓸때 추가해줘야함 //앱이름.모델클래스이름
     

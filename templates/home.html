@@ -20,4 +20,27 @@
     {% else %}
     <a href="{% provider_login_url "google" %}">구글로 계속하기</a> <br>
     {% endif %}
+<section class="flex-container-section-wrap">
+    <nav class="flex-container-nav">
+        <div class="flex-container-nav-list">
+            목록출력
+                    
+            {%for memo in memolist%}
+                
+                <h3>제목 : {{memo.memoNUM.title}}</h3>
+                <p>내용 : {{memo.memoNUM.contents}}</p>
+                유저 : {{memo.userNUM}}<br>
+                작성일시 : {{memo.memoNUM.memodate}}<br>
+                작성번호 : {{memo.memoNUM.pk}}<br>
+
+                
+            {% endfor %}
+        </div>
+    </nav>
+    <article class="flex-container-section-wrap">
+        <div class="flex-container-section">
+            내용출력
+        </div>
+    </article>
+</section>
 {% endblock content %}

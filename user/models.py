@@ -9,7 +9,6 @@ class User(AbstractUser):
 
     first_name = None
     last_name = None
-    email = None
     # 쓸데없는 항목 삭제
     
     def __str__(self):

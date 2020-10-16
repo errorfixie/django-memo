@@ -1,0 +1,47 @@
+body {
+  margin: 0mm;
+  padding: 0mm;
+}
+.flex-container {
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.flex-container-list {
+  display: flex;
+  justify-content: start;
+  width:  25%;
+}
+
+
+.flex-container-search {
+  display: flex-end;
+  justify-content: end;
+}
+
+
+.flex-container-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100vh;
+  width: 30vh;
+  background-color: gray;
+}
+
+.flex-container-section-wrap {
+  display: flex;
+  height: 100vh;
+  background-color: darkslategrey;
+}
+
+.flex-container-section-wrap {
+  display: flex;
+  justify-content: start;
+}
+
+.flex-container-list-page {
+  display: flex;
+  justify-content: space-around;
+}
