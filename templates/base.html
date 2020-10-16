@@ -1,17 +1,45 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     {% block title %}
     <!--타이틀-->
     {% endblock title %}
 
 </head>
+
 <body>
+    <header class="flex-container">
+        <div class="flex-container-list">
+            <button class="flex-item">목록</button>
+            <button class="flex-item">전체 목록</button>
+        </div>
+        <div class="flex-container">
+            <button class="flex-item">목록보기</button>
+            <button class="flex-item">첨부파일</button>
+            <button class="flex-item">삭제</button>
+            <button class="flex-item">생성</button>
+        </div>
+        <div class="flex-container">
+            <button class="flex-item">잠금</button>
+            <button class="flex-item">표만들기</button>
+            <button class="flex-item">체크리스트</button>
+            <button class="flex-item">스타일</button>
+        </div>
+        <div class="flex-container-search">
+            <button class="flex-item">연동</button>
+            <button class="flex-item">사람추가</button>
+            <button class="flex-item">공유</button>
+            <input type="search" name="" id="">
+        </div>
+    </header>
     {% block content %}
     <!--본문-->
     {% endblock content %}
 </body>
+
 </html>
