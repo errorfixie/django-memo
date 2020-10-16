@@ -39,6 +39,15 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.sites',
+    # allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # provider 구글
+    'allauth.socialaccount.providers.google',
 ]
 
 PROJECT_APPS = ['user', 'memo']
@@ -128,3 +137,18 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'user.User' #abstractUser쓸때 추가해줘야함 //앱이름.모델클래스이름
     
+## allauth 추가
+AUTHENTICATION_BACKENDS = (
+        # Needed to login by username in Django admin, regardless of 'allauth'
+        'django.contrib.auth.backends.ModelBackend',
+
+    # 'allauth' specific authentication methods, such as login by email and password
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+)
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/' ## 오류나면 홈으로 돌아가기
+ACCOUNT_LOGOUT_REDIRECT_URL = '/' #로그아웃 후 리다이렉트 할 페이지
+ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 버튼 클릭 시 자동 로그아웃
