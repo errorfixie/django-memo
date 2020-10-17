@@ -147,10 +147,14 @@ AUTHENTICATION_BACKENDS = (
 
 )
 
-SITE_ID = 1
+SITE_ID = 2
 
 LOGIN_REDIRECT_URL = '/memo/' ## 오류나면 홈으로 돌아가기
 LOGOUT_REDIRECT_URL = '/'
 # LOGIN_URL = '/' 
 ACCOUNT_LOGOUT_REDIRECT_URL = '/' #로그아웃 후 리다이렉트 할 페이지
 ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 버튼 클릭 시 자동 로그아웃
+
+ACCOUNT_SIGNUP_FORM_CLASS = 'user.forms.SignupForm'
+
+SOCIALACCOUNT_AUTO_SIGNUP=False

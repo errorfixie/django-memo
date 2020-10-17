@@ -10,16 +10,11 @@
     {% providers_media_js %}
 
     <h1>소셜 로그인!!!</h1>
-
-    <a href = "/signup">회원가입</a><br>
-    <a href = "{% url 'login'%}">로그인</a><br>
-    {% if user.is_authenticated %}
     <a href = "/logout">로그아웃</a>
-    {{user.nickname}} 님이 로그인중
+    {{user.nickname}} 님이 로그인중<br>
+    {{user.username}} 님이 로그인중<br>
 
-    {% else %}
     <a href="{% provider_login_url "google" %}">구글로 계속하기</a> <br>
-    {% endif %}
 <section class="flex-container-section-wrap">
     <nav class="flex-container-nav">
         <div class="flex-container-nav-list">
