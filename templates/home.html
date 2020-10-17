@@ -40,6 +40,12 @@
     <article class="flex-container-section-wrap">
         <div class="flex-container-section">
             내용출력
+
+            <form method="post">
+                {% csrf_token %}
+                    {{form.as_p}}
+                <input type="submit" value="메모저장">
+            </form>
         </div>
     </article>
 </section>

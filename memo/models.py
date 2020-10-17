@@ -21,4 +21,4 @@ class Usermemo(models.Model):
         on_delete=models.CASCADE,
     )
 
-    
+
