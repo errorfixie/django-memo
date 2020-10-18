@@ -17,7 +17,7 @@ def signup(request):
             user.save()
 
             return HttpResponseRedirect(
-                reverse("home")
+                reverse("login") #회원가입 성공 시 login페이지로 전환
             )
     elif request.method == "GET":
         signupform = SignupForm()
@@ -31,7 +31,7 @@ class UserLoginView(LoginView):
     template_name = "login.html"
     form_class = LoginForm
     success_url = reverse_lazy('memo:memolist')
-    
+
     # def form_invalid(self, form):
     #     messages.error(self.request, '로그인에 실패하였습니다.', extra_tags='danger')
     #     return super().form_invalid(form)

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Usermemo,Memo
+from django.http import HttpResponseRedirect
 from user.models import User
 from .forms import MemoCreateForm
 from django.urls import reverse,reverse_lazy
@@ -25,8 +26,10 @@ def MemoHomeView(request):
         title = request.POST.get('title')
         contents = request.POST.get('contents')
         
-
-        memo = Memo.objects.filter(title=title, contents=contents).order_by('-memodate')[0] # title과 contents가 같지만 가장 최신 데이터 객체
+        if Memo.objects.filter(title=title, contents=contents).order_by('-memodate'):
+            memo = Memo.objects.filter(title=title, contents=contents).order_by('-memodate')[0]
+        else:
+            memo = Memo.objects.filter(title=title, contents=contents).order_by('-memodate') # title과 contents가 같지만 가장 최신 데이터 객체
         username = request.user
 
         # print(memo.memodate) # 변수확인
