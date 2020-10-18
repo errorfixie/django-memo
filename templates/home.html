@@ -5,16 +5,11 @@
 {% endblock title %}
 
 {% block content %}
-<h1>홈</h1>
-    {% load socialaccount %}
-    {% providers_media_js %}
 
-    <h1>소셜 로그인!!!</h1>
-    <a href = "/logout">로그아웃</a>
-    {{user.nickname}} 님이 로그인중<br>
-    {{user.username}} 님이 로그인중<br>
+    <a href = "/logout">로그아웃</a><br>
+    별명 : {{user.nickname}} 님이 로그인중<br>
+    ID : {{user.username}} 님이 로그인중<br>
 
-    <a href="{% provider_login_url "google" %}">구글로 계속하기</a> <br>
 <section class="flex-container-section-wrap">
     <nav class="flex-container-nav">
         <div class="flex-container-nav-list">
@@ -26,7 +21,7 @@
                 <p>내용 : {{memo.memoNUM.contents}}</p>
                 유저 : {{memo.userNUM}}<br>
                 작성일시 : {{memo.memoNUM.memodate}}<br>
-                작성번호 : {{memo.memoNUM.pk}}<br>
+                {% comment %} 작성번호 : {{memo.memoNUM.pk}}<br> {% endcomment %}
 
                 
             {% endfor %}

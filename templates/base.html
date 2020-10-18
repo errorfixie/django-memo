@@ -15,8 +15,8 @@
 <body>
     <header class="flex-container">
         <div class="flex-container-list">
-            <button class="flex-item">목록</button>
-            <button class="flex-item">전체 목록</button>
+            <button class="flex-item" onclick = "location.href='{% url "memo:homelist"%}'">목록</button>
+            <button class="flex-item" onclick = "location.href='{% url "memo:list"%}'">전체 목록</button>
         </div>
         <div class="flex-container">
             <button class="flex-item">목록보기</button>
