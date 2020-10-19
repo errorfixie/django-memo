@@ -31,10 +31,10 @@
         <div class="flex-container-section">
             내용출력
 
-            <form method="post">
+            <form method="post" id="memosave">
                 {% csrf_token %}
                     {{form.as_p}}
-                <input type="submit" value="메모저장">
+                {% comment %} <input type="submit" value="메모저장"> {% endcomment %}
             </form>
         </div>
     </article>
