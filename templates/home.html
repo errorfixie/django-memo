@@ -14,24 +14,24 @@
                 {{memo.memoNUM.title | truncatechars:20}}
                 <h1 style="font-weight: bold;">{{memo.memoNUM.contents | truncatechars:20}}</h1>
                 {{memo.memoNUM.memodate | date:'A H:i' }}
-                
+
             </div>
             {% endfor %}
-            
+
         </div>
     </nav>
     <article class="flex-container-section-wrap">
         <div class="flex-container-section">
             <div>
-                    수정일시 : {{now}}
-                    <a href = "/logout">로그아웃</a>
+                수정일시 : {{now}}
+                <a href="/logout">로그아웃</a>
             </div>
         
             {% comment %} 내용출력 {% endcomment %}
             
             <form method="post" id="memosave">
                 {% csrf_token %}
-                    {{form.contents}}
+                {{form.contents}}
                 {% comment %} <input type="submit" value="메모저장"> {% endcomment %}
             </form>
         </div>

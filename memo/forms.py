@@ -14,8 +14,7 @@ class MemoCreateForm(forms.ModelForm):
             "contents":forms.Textarea(
                 attrs={ 
                     "class": "input-text-area",
-                    "cols" : "30",
-                    "rows" : "42",
+                
                 }
             ),
         }
