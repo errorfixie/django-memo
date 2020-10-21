@@ -30,8 +30,26 @@ def MemoHomeView(request):
         contents = request.POST.get('contents')
         # print(title,contents)
 
-
-        title, contents = contents.split("\n",1) # 엔터로 한번 나눠서, 들어온 contents중 첫줄은 title, 두번째줄부터는 contents로 변수저장
+        # title, contents
+        # 그냥 공백일경우
+        # 하나만 공백일 경우
+        # print(contents)
+        
+        if contents: # 하나만 공백일 경우
+            if "\n" in contents: 
+                try: # split 된다면 엔터로 한번 나눠서, 들어온 contents중 첫줄은 title, 두번째줄부터는 contents로 변수저장
+                    title, contents =  contents.split("\n",1)
+                except: #title이 공백일 경우
+                    title, contents = None, contents
+            
+            elif "\n" not in contents: # contents가 공백일 경우
+                title, contents = contents, None
+             
+        else: # 그냥 공백일 경우
+            title, contents = None, None
+        
+        print(title, contents)
+        # print(title, contents)
         # print("내용 :" ,contents)
         # print("제목 :",title)
         # request.POST['title'] = title
@@ -49,8 +67,8 @@ def MemoHomeView(request):
             form.save() # 저장
 
             
-            if Memo.objects.filter(contents=contents).order_by('-memodate'): #contents가 같지만 가장 최신 데이터 객체
-                memo = Memo.objects.filter(contents=contents).order_by('-memodate')[0]
+            if Memo.objects.order_by('-memodate'): #가장 최신 데이터 객체
+                memo = Memo.objects.order_by('-memodate')[0]
 
                 username = request.user
 
@@ -62,7 +80,7 @@ def MemoHomeView(request):
                 # usermemo테이블에 userNUM, memoNUM 저장하기
                 usermemo = Usermemo() # Usermemo객체 생성
                 usermemo.userNUM = username 
-                usermemo.memoNUM_id = memo.pk
+                usermemo.memoNUM_id = memo.pk 
 
                 usermemo.save() 
 
