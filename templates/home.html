@@ -11,10 +11,13 @@
             {%for memo in memolist%}
             <div class="menu-block">
                 <!--{{memo.memoNUM.memodate}}<br>-->
-                {{memo.memoNUM.title | truncatechars:20}}
-                <h1 style="font-weight: bold;">{{memo.memoNUM.contents | truncatechars:20}}</h1>
-                {{memo.memoNUM.memodate | date:'A H:i' }}
+                <a href= "?pk={{memo.memoNUM.pk}}">
 
+                    {{memo.memoNUM.title | truncatechars:20}}
+                    <h1 style="font-weight: bold;">{{memo.memoNUM.contents | truncatechars:20}}</h1>
+                    {{memo.memoNUM.memodate | date:'A H:i' }}
+
+                </a>
             </div>
             {% endfor %}
 
@@ -23,7 +26,13 @@
     <article class="flex-container-section-wrap">
         <div class="flex-container-section">
             <div>
-                수정일시 : {{now}}
+                {% if pk_memodate %}
+                    저장일시 : {{pk_memodate}}<br>
+                    수정일시 : {{pk_memoupdate}}
+                {% else %}
+                    현재시각 : {{now}}
+                {% endif %}
+
                 <a href="/logout">로그아웃</a>
             </div>
         
@@ -33,6 +42,7 @@
                 {% csrf_token %}
                 {{form.contents}}
                 {% comment %} <input type="submit" value="메모저장"> {% endcomment %}
+                <input type="hidden" name="pk" value="{{pk}}">
             </form>
         </div>
     </article>
