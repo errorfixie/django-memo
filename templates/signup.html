@@ -8,15 +8,16 @@
 </head>
 
 <body>
-    <form action="">
+    <form method="post" action="">
+        {% csrf_token %}
         <fieldset>
             <legend>회원가입</legend>
-            이름 : <input type="text" />
-            닉네임 : <input type="text" />
-            아이디 : <input type="text" />
-            비밀번호 : <input type="password" />
-            비밀번호확인 : <input type="password" />
-            이메일 : <input type="text" /> <br />
+
+                <form method="post">
+                
+                        {{form.as_p}} 
+                </form>
+
             <input type="submit" value="확인">
             <input type="submit" value="취소">
         </fieldset>

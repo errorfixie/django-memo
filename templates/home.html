@@ -7,21 +7,22 @@
 {% block content %}
 <section class="flex-container-section-wrap">
     <nav class="flex-container-nav">
-        <div class="niche">dd</div>
         <div class="flex-container-nav-list">
             {%for memo in memolist%}
-
-            <h4>제목 : {{memo.memoNUM.title}}</h4>
-            <strong>{{memo.memoNUM.memodate}}</strong>
-            <strong>{{memo.memoNUM.memodate | date:'A H:i' }}</strong>
-            {{memo.memoNUM.contents}}
-
+            <div class="menu-block">
+                <!--{{memo.memoNUM.memodate}}<br>-->
+                <h1 style="font-weight: bold;">{{memo.memoNUM.contents | truncatechars:20}}</h1>
+                {{memo.memoNUM.memodate | date:'A H:i' }}
+            </div>
             {% endfor %}
         </div>
     </nav>
-    <article class="flex-container-section-wrap">
-        <div class="flex-container-section">
-            내용출력
+    <article class="input-text-area">
+        <div class="">
+            <form method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+            </form>
         </div>
     </article>
 </section>

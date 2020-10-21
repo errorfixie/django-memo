@@ -6,11 +6,18 @@ class MemoCreateForm(forms.ModelForm):
         model = models.Memo
         
         fields = [
-            "title",
             "contents"
         ]
 
         widgets = {
-            "title":forms.TextInput(),
-            "contents":forms.Textarea(),
+            "contents":forms.Textarea(
+                attrs={ 
+                    "class": "input-text-area",
+                    "cols" : "30",
+                    "rows" : "42",
+                }
+            ),
+        }
+        labels = {
+            'contents': '',
         }
