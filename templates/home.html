@@ -19,12 +19,12 @@
     </nav>
     <article class="flex-container-section-wrap">
         <div class="flex-container-section">
-        <a href = "/logout">로그아웃</a><br>
+            <a href="/logout">로그아웃</a><br>
             내용출력
-            
+
             <form method="post" id="memosave">
                 {% csrf_token %}
-                    {{form.as_p}}
+                {{form.contents}}
                 {% comment %} <input type="submit" value="메모저장"> {% endcomment %}
             </form>
         </div>
