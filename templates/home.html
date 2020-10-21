@@ -11,20 +11,27 @@
             {%for memo in memolist%}
             <div class="menu-block">
                 <!--{{memo.memoNUM.memodate}}<br>-->
+                {{memo.memoNUM.title | truncatechars:20}}
                 <h1 style="font-weight: bold;">{{memo.memoNUM.contents | truncatechars:20}}</h1>
                 {{memo.memoNUM.memodate | date:'A H:i' }}
+                
             </div>
             {% endfor %}
+            
         </div>
     </nav>
     <article class="flex-container-section-wrap">
         <div class="flex-container-section">
-        <a href = "/logout">로그아웃</a><br>
+            <div>
+                    수정일시 : {{now}}
+                    <a href = "/logout">로그아웃</a>
+            </div>
+        
             내용출력
             
             <form method="post" id="memosave">
                 {% csrf_token %}
-                    {{form.as_p}}
+                    {{form.contents}}
                 {% comment %} <input type="submit" value="메모저장"> {% endcomment %}
             </form>
         </div>

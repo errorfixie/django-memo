@@ -6,6 +6,7 @@ class MemoCreateForm(forms.ModelForm):
         model = models.Memo
         
         fields = [
+            "title",
             "contents"
         ]
 
@@ -19,5 +20,6 @@ class MemoCreateForm(forms.ModelForm):
             ),
         }
         labels = {
+            'title':"",
             'contents': '',
         }
