@@ -4,8 +4,7 @@ from django.http import HttpResponseRedirect
 from .forms import SignupForm, LoginForm
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from django.contrib import auth
-from django.contrib.auth import authenticate,login
+
 def signup(request):
 
     if request.method == "POST":
@@ -31,7 +30,3 @@ class UserLoginView(LoginView):
     template_name = "login.html"
     form_class = LoginForm
     success_url = reverse_lazy('memo:memolist')
-
-    # def form_invalid(self, form):
-    #     messages.error(self.request, '로그인에 실패하였습니다.', extra_tags='danger')
-    #     return super().form_invalid(form)

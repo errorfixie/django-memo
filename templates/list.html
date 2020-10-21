@@ -7,16 +7,16 @@
 {% block content %}
 <nav class="flex-container-list-page">
     <div>
-        
-        {%for memo in memolist%}
-            
-            <h3>제목 : {{memo.memoNUM.title}}</h3>
-            <p>내용 : {{memo.memoNUM.contents}}</p>
-            유저 : {{memo.userNUM}}<br>
-            작성일시 : {{memo.memoNUM.memodate}}<br>
-            {% comment %} 작성번호 : {{memo.memoNUM.pk}}<br> {% endcomment %}
 
-            
+        {%for memo in memolist%}
+
+        <h3>제목 : {{memo.memoNUM.title}}</h3>
+        <p>내용 : {{memo.memoNUM.contents}}</p>
+        유저 : {{memo.userNUM}}<br>
+        작성일시 : {{memo.memoNUM.memodate}}<br>
+        {% comment %} 작성번호 : {{memo.memoNUM.pk}}<br> {% endcomment %}
+
+
         {% endfor %}
     </div>
 </nav>

@@ -4,9 +4,11 @@ from django.http import HttpResponseRedirect
 from user.models import User
 from .forms import MemoCreateForm
 from django.urls import reverse,reverse_lazy
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 # 메모리스트
+@login_required # 로그인일때만 실행가능
 def MemoListView(request):
 
     memo_list = Usermemo.objects.filter(userNUM = request.user).order_by('-memoNUM')
@@ -15,30 +17,30 @@ def MemoListView(request):
 
     return render(request,"list.html",context)
 
-    
+@login_required
 def MemoHomeView(request):
     
     if request.method == "POST": # POST로 들어오면
         form = MemoCreateForm(request.POST) # 들어온 값들을 MemoCreateForm에 넣어 객체생성
 
-        if form.is_valid():
+        if form.is_valid(): # 유효성검사
             form.save() # 저장
 
             # 폼에 넣은 값 변수로 저장
             title = request.POST.get('title')
             contents = request.POST.get('contents')
             
-            if Memo.objects.filter(title=title, contents=contents).order_by('-memodate'):
-                memo = Memo.objects.filter(title=title, contents=contents).order_by('-memodate')[0]
+            if Memo.objects.filter(contents=contents).order_by('-memodate'):
+                memo = Memo.objects.filter(contents=contents).order_by('-memodate')[0]
             else:
-                memo = Memo.objects.filter(title=title, contents=contents).order_by('-memodate') # title과 contents가 같지만 가장 최신 데이터 객체
+                memo = Memo.objects.filter(contents=contents).order_by('-memodate') # title과 contents가 같지만 가장 최신 데이터 객체
             username = request.user
 
             # print(memo.memodate) # 변수확인
             # print(memo.title)
             # print(memo.contents)
             # print(memo.pk)
-            
+            # print(memo)
             # usermemo테이블에 userNUM, memoNUM 저장하기
             usermemo = Usermemo() # Usermemo객체 생성
             usermemo.userNUM = username 

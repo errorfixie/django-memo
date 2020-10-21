@@ -7,7 +7,7 @@ class Memo(models.Model):
     memodate = models.DateTimeField(verbose_name="메모등록날짜", auto_now_add=True) #메모등록날짜
 
     def __str__(self):
-        return self.title
+        return self.contents
 
 class Usermemo(models.Model):
     userNUM = models.ForeignKey(

@@ -13,33 +13,41 @@
 </head>
 
 <body>
-    <header class="flex-container">
+    <header class="flex-header-container">
         <div class="flex-container-list">
-            <button class="flex-item" onclick = "location.href='{% url "memo:homelist"%}'">목록</button>
-            <button class="flex-item" onclick = "location.href='{% url "memo:list"%}'">전체 목록</button>
+            <button class="flex-item" onclick="location.href='{% url "memo:homelist"%}'"></button>
+            <button class="flex-item" onclick="location.href='{% url "memo:list"%}'"></button>
         </div>
-        <div class="flex-container">
-            <button class="flex-item">목록보기</button>
-            <button class="flex-item">첨부파일</button>
-            <button class="flex-item">삭제</button>
-            <button class="flex-item" type = "submit" form = "memosave">생성</button>
+        <div class="flex-container-1">
+            <button class="flex-item"></button>
+            <button class="flex-item"></button>
+            <button class="flex-item"></button>
+            <button class="flex-item" type = "submit" form = "memosave"></button>
         </div>
-        <div class="flex-container">
-            <button class="flex-item">잠금</button>
-            <button class="flex-item">표만들기</button>
-            <button class="flex-item">체크리스트</button>
-            <button class="flex-item">스타일</button>
+        <div class="flex-container-2">
+            <button class="flex-item"></button>
+            <button class="flex-item"></button>
+            <button class="flex-item"></button>
+            <button class="flex-item"></button>
         </div>
         <div class="flex-container-search">
-            <button class="flex-item">연동</button>
-            <button class="flex-item">사람추가</button>
-            <button class="flex-item">공유</button>
-            <input type="search" name="" id="">
+            <button class="flex-item"></button>
+            <button class="flex-item"></button>
+            <button class="flex-item"></button>
+            <input type="search" name="search" value="검색" id="">
         </div>
     </header>
     {% block content %}
     <!--본문-->
     {% endblock content %}
+    <script>
+        // 900px 3-2버튼 -> 845px 4-3버튼 -> 800px 4-1버튼 -> 745px 3-4버튼 -> 700px 3-3버튼 -> 660px 검색창 -> 480 미니멀
+        // 삭제 코드
+        // var re = document.getElementsByClassName("flex-container-list")[0];
+        // var move = document.getElementsByClassName('flex-item')[0];
+        // move.parentNode.removeChild(move);
+
+    </script>
 </body>
 
 </html>

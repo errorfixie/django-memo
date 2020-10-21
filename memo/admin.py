@@ -6,7 +6,7 @@ from .models import Memo, Usermemo
 
 class MemoAdmin(admin.ModelAdmin):
     fields = ['title', 'contents',]
-    list_display = ['title', 'memodate']
+    list_display = ['contents', 'memodate']
     list_filter = ['memodate']
     search_fields = ['title']
 

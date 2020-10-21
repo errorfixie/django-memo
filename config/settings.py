@@ -147,14 +147,15 @@ AUTHENTICATION_BACKENDS = (
 
 )
 
-SITE_ID = 2
+SITE_ID = 1
 
-LOGIN_REDIRECT_URL = '/memo/' ## 오류나면 홈으로 돌아가기
-LOGOUT_REDIRECT_URL = '/'
-# LOGIN_URL = '/' 
+LOGIN_REDIRECT_URL = '/memo/' ## 로그인 성공 후 리다이렉트 할 페이지
+LOGIN_URL = '/'  ## 로그인되지 않은 사용자가 view요청 시 이동할 페이지
+LOGOUT_REDIRECT_URL = '/' # 로그아웃 후 리다이렉트 할 페이지
+# --- allauth관련 url 설정 --
 ACCOUNT_LOGOUT_REDIRECT_URL = '/' #로그아웃 후 리다이렉트 할 페이지
 ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 버튼 클릭 시 자동 로그아웃
 
 ACCOUNT_SIGNUP_FORM_CLASS = 'user.forms.SignupForm'
 
-SOCIALACCOUNT_AUTO_SIGNUP=False
+SOCIALACCOUNT_AUTO_SIGNUP=False # 구글연동해도 회원가입 따로 받음
