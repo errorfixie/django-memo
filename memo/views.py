@@ -6,9 +6,9 @@ from .forms import MemoCreateForm
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth.decorators import login_required
 import datetime
-# Create your views here.
 
-# 메모리스트
+
+
 @login_required # 로그인일때만 실행가능
 def MemoListView(request):
 
@@ -19,7 +19,7 @@ def MemoListView(request):
     return render(request,"list.html",context)
 
 @login_required
-def MemoHomeView(request):
+def MemoHomeListUpdateView(request):
     
     context = {} #템플릿에 보낼 변수 지정
     context['now'] = datetime.datetime.now()
@@ -107,7 +107,7 @@ def MemoHomeView(request):
                 return HttpResponseRedirect('/memo/') # 저장후 리다이렉트할 url 지정 
             
 
-    else:
+    else: # request.method == "GET": # GET으로 들어오면
         if not request.GET: # get으로 아무것도없으면
             form = MemoCreateForm() # POST가 아니면 그냥 폼만 보여줌
         # print(request.GET)
@@ -127,17 +127,17 @@ def MemoHomeView(request):
             context['pk_memodate'] = memo_pk.memodate
             context['pk_memoupdate'] = memo_pk.memoupdate # 수정날짜, 저장날짜 템플릿에 보내기
             context['pk'] = pk
+
+
     memo_list = Usermemo.objects.filter(userNUM = request.user).order_by('-memoNUM') # 지금 접속중인 user것만 최신순으로 가져와!!
 
     # print(request.user) # 장고가 로그인할때 session정보를 통해 request.user에 username을 저장한다
 
-    
-    
     context['memolist'] = memo_list # Usermemo 값들은 'memolist'로 저장
     context['form'] = form # Form 값들은 'form'으로 저장
 
-
     return render(request,"home.html",context)
+
 
 @login_required 
 def MemoDeleteView(request): # 삭제기능 => pk값을 받아 구현할 것인지 아니면 request에 pk값이 없으면 최근데이터부터 삭제 있으면 그 데이터삭제

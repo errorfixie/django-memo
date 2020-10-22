@@ -44,7 +44,8 @@
                 {% comment %} <input type="submit" value="메모저장"> {% endcomment %}
                 <input type="hidden" name="pk" value="{{pk}}">
             </form>
-
+            
+            {% comment %} 메모저장폼 {% endcomment %}
             <form method="post" id="delete" action="{%url 'memo:delete'%}">
                 {% csrf_token %}
                 <input type="hidden" name="pk" value="{{pk}}">

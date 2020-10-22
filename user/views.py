@@ -29,4 +29,4 @@ def signup(request):
 class UserLoginView(LoginView):
     template_name = "login.html"
     form_class = LoginForm
-    success_url = reverse_lazy('memo:memolist')
+    success_url = reverse_lazy('memo:memolist') # generic view에서 사용하는 reverse방식

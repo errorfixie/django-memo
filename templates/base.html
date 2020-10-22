@@ -39,6 +39,14 @@
             {% comment %} 로그아웃버튼 {% endcomment %}
                 <button class="flex-item" onclick="location.href='/logout'"></button>
             <input type="search" name="search" value="검색" id="">
+            
+        </div>
+        <div>
+            {% if user.nickname %}
+                {{user.nickname}}님이 사용중
+            {%else%}
+                {{user.username}}님이 사용중
+            {% endif %}
         </div>
     </header>
     {% block content %}
