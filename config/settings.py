@@ -48,6 +48,7 @@ DJANGO_APPS = [
 
     # provider 구글
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.naver',
 ]
 
 PROJECT_APPS = ['user', 'memo']
