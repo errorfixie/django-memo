@@ -9,6 +9,131 @@ import datetime
 
 
 
+@login_required 
+def MemoListView(request):
+
+    memo_list = Usermemo.objects.filter(userNUM = request.user).order_by('-memoNUM')
+    context = {} 
+    context['memolist'] = memo_list 
+
+    return render(request,"list.html",context)
+
+@login_required
+def MemoHomeListUpdateView(request):
+    
+    context = {} 
+
+    if request.method == "POST": 
+
+        contents = request.POST.get('contents')
+            
+        if contents: 
+            if "\n" in contents: 
+                try: 
+                    title, contents =  contents.split("\n",1)
+                except:
+                    title, contents = None, contents
+                
+            elif "\n" not in contents: 
+                title, contents = contents, None
+                
+        else: 
+            title, contents = None, None
+
+        if request.POST.get('pk'): 
+            pk = request.POST.get('pk')
+            post_memo = Memo.objects.get(pk=pk)
+            post_memo.title, post_memo.contents = title, contents
+            post_memo.save()
+
+            return HttpResponseRedirect('/memo/?pk={}'.format(pk)) 
+
+        else: 
+            POST = {} 
+            POST['csrfmiddlewaretoken'] = request.POST['csrfmiddlewaretoken']
+            POST['title'] = title
+            POST['contents'] = contents 
+
+            form = MemoCreateForm(POST)
+            
+            if form.is_valid(): 
+                form.save() 
+                
+                if Memo.objects.order_by('-memodate'):
+                    memo = Memo.objects.order_by('-memodate')[0]
+
+                    usermemo = Usermemo() 
+                    usermemo.userNUM = request.user 
+                    usermemo.memoNUM_id = memo.pk 
+                    usermemo.save() 
+
+                    return HttpResponseRedirect('/memo/?pk={}'.format(memo.pk)) 
+                
+                return HttpResponseRedirect('/memo/') 
+            
+    else: 
+        if not request.GET:
+            form = MemoCreateForm() 
+
+        else: 
+            pk = request.GET.get('pk')
+            memo_pk = Memo.objects.get(id=pk)
+            contents = memo_pk.title + "\n" + memo_pk.contents
+            GET = {}
+            GET['contents'] = contents
+            form = MemoCreateForm(GET)
+
+            context['pk_memodate'] = memo_pk.memodate
+            context['pk_memoupdate'] = memo_pk.memoupdate 
+            context['pk'] = pk
+
+
+    memo_list = Usermemo.objects.filter(userNUM = request.user).order_by('-memoNUM')
+
+
+    context['memolist'] = memo_list 
+    context['form'] = form
+    context['now'] = datetime.datetime.now()
+
+    return render(request,"home.html",context)
+
+
+@login_required 
+def MemoDeleteView(request): 
+    if request.POST.get('pk'): 
+        pk = request.POST.get('pk')
+        memo = Memo.objects.get(pk=pk)
+        memo.delete()
+
+        return redirect('memo:homelist')
+
+    if Usermemo.objects.filter(userNUM = request.user).order_by('-memoNUM'):
+        usermemo = Usermemo.objects.filter(userNUM = request.user).order_by('-memoNUM')[0]
+        memo_id = usermemo.memoNUM_id
+        memo = Memo.objects.get(pk=memo_id)
+        memo.delete()
+        
+        return redirect('memo:homelist')
+
+    return redirect('memo:homelist') 
+
+@login_required 
+def MemoCreateView(request):
+    memo = Memo()
+
+    memo.save()
+
+    memo = Memo.objects.order_by('-memodate')[0]
+
+    usermemo = Usermemo()
+    usermemo.userNUM = request.user
+    usermemo.memoNUM_id = memo.pk
+    usermemo.save()
+
+    return HttpResponseRedirect('/memo/?pk={}'.format(memo.pk))
+# ----------------------------------------------------------------------------------------------------------
+
+""" 주석버전
 @login_required # 로그인일때만 실행가능
 def MemoListView(request):
 
@@ -170,4 +295,4 @@ def MemoCreateView(request):
     usermemo.save()
 
     return HttpResponseRedirect('/memo/?pk={}'.format(memo.pk))
-# ----------------------------------------------------------------------------------------------------------
+"""
