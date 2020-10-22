@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Usermemo,Memo
 from django.http import HttpResponseRedirect
 from user.models import User
@@ -23,35 +23,47 @@ def MemoHomeView(request):
     
     context = {} #템플릿에 보낼 변수 지정
     context['now'] = datetime.datetime.now()
-
+    
     if request.method == "POST": # POST로 들어오면
-        # print(request.POST)
-        if request.POST.get('pk'): # pk값이 있으면 수정
-            pass
 
-        else: #없으면 새로운 저장
+        # 폼에 넣은 값 변수로 저장
+        contents = request.POST.get('contents')
+        # print(title,contents)
 
-            # 폼에 넣은 값 변수로 저장
-            contents = request.POST.get('contents')
-            # print(title,contents)
-
-            # title, contents
-            # 그냥 공백일경우
-            # 하나만 공백일 경우
-            # print(contents)
+        # title, contents
+        # 그냥 공백일경우
+        # 하나만 공백일 경우
+        # print(contents)
             
-            if contents: # 하나만 공백일 경우
-                if "\n" in contents: 
-                    try: # split 된다면 엔터로 한번 나눠서, 들어온 contents중 첫줄은 title, 두번째줄부터는 contents로 변수저장
-                        title, contents =  contents.split("\n",1)
-                    except: #title이 공백일 경우
-                        title, contents = None, contents
+        if contents: # 하나만 공백일 경우
+            if "\n" in contents: 
+                try: # split 된다면 엔터로 한번 나눠서, 들어온 contents중 첫줄은 title, 두번째줄부터는 contents로 변수저장
+                    title, contents =  contents.split("\n",1)
+                except: #title이 공백일 경우
+                    title, contents = None, contents
                 
-                elif "\n" not in contents: # contents가 공백일 경우
-                    title, contents = contents, None
+            elif "\n" not in contents: # contents가 공백일 경우
+                title, contents = contents, None
                 
-            else: # 그냥 공백일 경우
-                title, contents = None, None
+        else: # 그냥 공백일 경우
+            title, contents = None, None
+
+        # print(request.POST)
+        if request.POST.get('pk'): # pk값이 있으면 메모데이터를 수정
+            pk = request.POST.get('pk')
+            post_memo = Memo.objects.get(pk=pk)
+            # print(title, contents)
+            # print(post_memo)
+            post_memo.title = title
+            # print(post_memo.title)
+            # print(post_memo.contents)
+            post_memo.contents = contents
+            post_memo.save() # 새로운 값으로 수정
+
+            return HttpResponseRedirect('/memo/?pk={}'.format(pk)) # 수정완료 후 해당페이지로
+
+        else: 
+            ##pk값이 없으면 새로운 저장 = > 새로 저장안하려면 else문 지우면됨
             
             # print(title, contents)
             # print("내용 :" ,contents)
@@ -88,9 +100,10 @@ def MemoHomeView(request):
 
                     usermemo.save() 
 
-                    return HttpResponseRedirect('/memo/') 
+                    return HttpResponseRedirect('/memo/?pk={}'.format(memo.pk)) 
 
                 #데이터가 아무것도 없어서 memo가 None이면 그냥 리다이렉트
+                
                 return HttpResponseRedirect('/memo/') # 저장후 리다이렉트할 url 지정 
             
 
@@ -126,4 +139,35 @@ def MemoHomeView(request):
 
     return render(request,"home.html",context)
 
+@login_required 
+def MemoDeleteView(request): # 삭제기능 => pk값을 받아 구현할 것인지 아니면 request에 pk값이 없으면 최근데이터부터 삭제 있으면 그 데이터삭제
+    if request.POST.get('pk'): # 포스트방식으로 pk값을 받으면
+        pk = request.POST.get('pk')
+        memo = Memo.objects.get(pk=pk)
+        memo.delete()
+        return redirect('memo:homelist')
+    # pk값을 받지 않고 그냥 호출된다면
+    if Usermemo.objects.filter(userNUM = request.user).order_by('-memoNUM'):
+        usermemo = Usermemo.objects.filter(userNUM = request.user).order_by('-memoNUM')[0]
+        memo_id = usermemo.memoNUM_id
+        memo = Memo.objects.get(pk=memo_id)
+        memo.delete()
+        return redirect('memo:homelist')
+    return redirect('memo:homelist') # 리스트가 없다면 그냥 리다이렉트
+
+@login_required 
+def MemoCreateView(request):
+    memo = Memo()
+    # memo.pk
+    # print(memo.pk)
+    memo.save()
+
+    memo = Memo.objects.order_by('-memodate')[0]
+
+    usermemo = Usermemo()
+    usermemo.userNUM = request.user
+    usermemo.memoNUM_id = memo.pk
+    usermemo.save()
+
+    return HttpResponseRedirect('/memo/?pk={}'.format(memo.pk))
 # ----------------------------------------------------------------------------------------------------------

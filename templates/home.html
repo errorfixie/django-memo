@@ -33,7 +33,7 @@
                     현재시각 : {{now}}
                 {% endif %}
 
-                <a href="/logout">로그아웃</a>
+                
             </div>
         
             {% comment %} 내용출력 {% endcomment %}
@@ -44,7 +44,13 @@
                 {% comment %} <input type="submit" value="메모저장"> {% endcomment %}
                 <input type="hidden" name="pk" value="{{pk}}">
             </form>
-        </div>
+
+            <form method="post" id="delete" action="{%url 'memo:delete'%}">
+                {% csrf_token %}
+                <input type="hidden" name="pk" value="{{pk}}">
+            </form>
+
+            </div>
     </article>
 </section>
 {% endblock content %}

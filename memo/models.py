@@ -21,5 +21,6 @@ class Usermemo(models.Model):
         verbose_name="메모번호",
         on_delete=models.CASCADE,
     )
+    # models.CASCADE => 원본데이터가 삭제되면 자동으로 foreign키 받은 모델의 데이터도 삭제
 
 
