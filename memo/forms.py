@@ -14,6 +14,7 @@ class MemoCreateForm(forms.ModelForm):
             "contents":forms.Textarea(
                 attrs={ 
                     "class": "input-text-area",
+                      "style" : "width:1300px; height:650px;font-size:15px"
                 
                 }
             ),
