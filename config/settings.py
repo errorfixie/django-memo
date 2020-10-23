@@ -157,6 +157,18 @@ LOGOUT_REDIRECT_URL = '/' # 로그아웃 후 리다이렉트 할 페이지
 ACCOUNT_LOGOUT_REDIRECT_URL = '/' #로그아웃 후 리다이렉트 할 페이지
 ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 버튼 클릭 시 자동 로그아웃
 
-ACCOUNT_SIGNUP_FORM_CLASS = 'user.forms.SignupForm'
+# ACCOUNT_SIGNUP_FORM_CLASS = 'user.forms.SignupForm'
 
-SOCIALACCOUNT_AUTO_SIGNUP=False # 구글연동해도 회원가입 따로 받음
+# SOCIALACCOUNT_AUTO_SIGNUP=False # 구글연동해도 회원가입 따로 받음
+
+
+"""
+Google
+클라id : 382470756024-f1gin5nu5hsb2s9jkvqsnh5l0f8eu08u.apps.googleusercontent.com
+비밀키 : Yw_vc2Mi60YAVWVRWx7WG7ov
+
+Naver
+클라id : fbTyu9igwVBVunhin6Ig
+비밀키 : F4a5ufincr
+
+"""

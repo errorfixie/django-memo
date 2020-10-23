@@ -4,7 +4,9 @@ from django.http import HttpResponseRedirect
 from .forms import SignupForm, LoginForm
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
+from . import models
 import requests
+from django.contrib.auth import login
 
 
 def signup(request):
@@ -41,37 +43,67 @@ def KakaoSignInView(request):
         "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id={}&redirect_uri={}".format(REST_API_KEY,REDIRECT_URI)
         )
 
-class KakaoException(Exception):
-    pass
-
 def KakaoLoginCallback(request):
     
-    if request.GET.get('error'): #에러가 나면 로그인페이지로 돌아가
-        error = request.GET.get('error')
-        return HttpResponseRedirect(reverse("login"))
+    try:
 
-    code = request.GET.get('code')
-    REST_API_KEY = "d9af7226a651272501b0326813ee20f8"
-    REDIRECT_URI = "http://127.0.0.1:8000/kakao/login/callback"
+        if request.GET.get('error'): #에러가 나면 로그인페이지로 돌아가
+            error = request.GET.get('error')
+            return HttpResponseRedirect(reverse("login"))
 
-    token_request = requests.get(
-            f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&code={code}"
-        )
+        code = request.GET.get('code')
+        REST_API_KEY = "d9af7226a651272501b0326813ee20f8"
+        REDIRECT_URI = "http://127.0.0.1:8000/kakao/login/callback"
 
-    token_response_json = token_request.json()
-    access_token = token_response_json.get('access_token')
-
-    
-    profile_request = requests.get(
-            "https://kapi.kakao.com/v2/user/me", headers={"Authorization" : f"Bearer {access_token}"}
+        token_request = requests.get(
+                f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&code={code}"
             )
 
-    profile_request_json = profile_request.json()
-    user = profile_request_json.get('kakao_account')
-    # print(profile_request_json)
-    # print(user.get('profile').get('nickname'),user.get('email'))
-    user_nickname, user_email = user.get('profile').get('nickname'), user.get('email')
+        token_response_json = token_request.json()
+        access_token = token_response_json.get('access_token')
 
-    # 카카오 유저정보 바탕으로 장고db에 저장~~
+        
+        profile_request = requests.get(
+                "https://kapi.kakao.com/v2/user/me", headers={"Authorization" : f"Bearer {access_token}"}
+                )
 
-    return HttpResponseRedirect(reverse("login"))
+        profile_request_json = profile_request.json()
+        user = profile_request_json.get('kakao_account')
+        # print(profile_request_json)
+        # print(user.get('profile').get('nickname'),user.get('email'))
+        user_nickname, user_email = user.get('profile').get('nickname'), user.get('email')
+
+        # 카카오 유저정보 바탕으로 장고db에 저장~~
+
+        try:
+            # 모델에 저장할 필요없이 바로 로그인
+            user_in_db = models.User.objects.get(username = "kakao#" + user_email)
+            login(
+                request,
+                user_in_db,
+                backend="django.contrib.auth.backends.ModelBackend",
+            )
+            
+
+        except:
+            # db에 유저정보 저장 
+            new_user_to_db = models.User.objects.create(
+                username = "kakao#" + user_email,
+                # email = user_email,
+                nickname = "카카오#" + user_nickname
+            )
+
+            new_user_to_db.set_unusable_password() # 
+            new_user_to_db.save()
+            
+            # 자동로그인
+            login(
+                request,
+                new_user_to_db,
+                backend="django.contrib.auth.backends.ModelBackend",
+
+            )
+
+        return HttpResponseRedirect(reverse("memo:homelist"))
+    except:
+        return HttpResponseRedirect(reverse("login"))
