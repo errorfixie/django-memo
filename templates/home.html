@@ -18,13 +18,24 @@
                 <!--여기서 새로 생긴다. 이유는 for문에서 할당하지 않았으니까-->
                 {%for memo in memolist%}
                 <!--{{memo.memoNUM.memodate}}<br>-->
+<<<<<<< HEAD
                 {{memo.memoNUM.title | truncatechars:20}}
                 <h1 style="font-weight: bold;">{{memo.memoNUM.contents | truncatechars:20}}</h1>
                 {{memo.memoNUM.memodate | date:'A H:i' }}
                 {% endfor %}
+=======
+                <a href= "?pk={{memo.memoNUM.pk}}">
+
+                    {{memo.memoNUM.title | truncatechars:20}}
+                    <h1 style="font-weight: bold;">{{memo.memoNUM.contents | truncatechars:20}}</h1>
+                    {{memo.memoNUM.memodate | date:'A H:i' }}
+
+                </a>
+>>>>>>> b33cf834c0648ec0a5dc07103e0db219965ac642
             </div>
         </div>
     </nav>
+<<<<<<< HEAD
     <article class="flex-container-article">
         <div class="article-time">
             수정일시 : {{now}}
@@ -35,6 +46,37 @@
             {{form.contents}}
             {% comment %} <input type="submit" value="메모저장"> {% endcomment %}
         </form>
+=======
+    <article class="flex-container-section-wrap">
+        <div class="flex-container-section">
+            <div>
+                {% if pk_memodate %}
+                    저장일시 : {{pk_memodate}}<br>
+                    수정일시 : {{pk_memoupdate}}
+                {% else %}
+                    현재시각 : {{now}}
+                {% endif %}
+
+                
+            </div>
+        
+            {% comment %} 내용출력 {% endcomment %}
+            
+            <form method="post" id="memosave">
+                {% csrf_token %}
+                {{form.contents}}
+                {% comment %} <input type="submit" value="메모저장"> {% endcomment %}
+                <input type="hidden" name="pk" value="{{pk}}">
+            </form>
+            
+            {% comment %} 메모저장폼 {% endcomment %}
+            <form method="post" id="delete" action="{%url 'memo:delete'%}">
+                {% csrf_token %}
+                <input type="hidden" name="pk" value="{{pk}}">
+            </form>
+
+            </div>
+>>>>>>> b33cf834c0648ec0a5dc07103e0db219965ac642
     </article>
 </section>
 {% endblock content %}

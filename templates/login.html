@@ -10,18 +10,22 @@
 <body>
     
     <form method = "POST" action="">
+        {% csrf_token %}
         <fieldset>
             <legend>로그인</legend>
                 <form method="POST">
                     {% csrf_token %}
                         {{form.as_p}} 
                         <input type="submit" value="login">
-                        <a href="{% url 'signup'%}">회원가입</a>
+                        <a href="{% url 'signup'%}">회원가입</a><br>
                 </form>
             
                 {% load socialaccount %} 
                 {% providers_media_js %}
                 <a href="{% provider_login_url "google" %}">구글로 계속하기</a> <br>
+                <a href="{% provider_login_url "naver" %}">네이버로 계속하기</a> <br>
+                <a href="{%url 'kakaosignin' %}">카카오로 계속하기</a>
+
             
         </fieldset>
     </form>

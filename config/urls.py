@@ -16,15 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LogoutView
-from user.views import signup,UserLoginView
+from user.views import signup,UserLoginView,KakaoSignInView,KakaoLoginCallback
 import allauth
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('memo/', include('memo.urls')),
     path('',UserLoginView.as_view(), name="login"),
     path('signup/',signup,name="signup"),
     path('logout/', LogoutView.as_view(), name='logout'),
-    
-    path('accounts/social/signup/',signup,),
+
     path('accounts/',include('allauth.urls')),
+    
+    path('kakao/',KakaoSignInView,name='kakaosignin'),
+    path('kakao/login/callback',KakaoLoginCallback, name='kakaologincallback'),
 ]

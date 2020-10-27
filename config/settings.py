@@ -25,7 +25,10 @@ SECRET_KEY = 'awxkq*j&7q5yj05qhc&)tv(yg97*f2gw!mkfeh7v+^0f%w#4m%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '.ap-northeast-2.compute.amazonaws.com',
+]
 
 
 # Application definition
@@ -48,6 +51,7 @@ DJANGO_APPS = [
 
     # provider 구글
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.naver',
 ]
 
 PROJECT_APPS = ['user', 'memo']
@@ -134,6 +138,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, ".static_root") # 정적파일보관함
 
 AUTH_USER_MODEL = 'user.User' #abstractUser쓸때 추가해줘야함 //앱이름.모델클래스이름
     
@@ -147,7 +152,7 @@ AUTHENTICATION_BACKENDS = (
 
 )
 
-SITE_ID = 1
+SITE_ID = 1 # db에 저장될 호스트사이트 ID
 
 LOGIN_REDIRECT_URL = '/memo/' ## 로그인 성공 후 리다이렉트 할 페이지
 LOGIN_URL = '/'  ## 로그인되지 않은 사용자가 view요청 시 이동할 페이지
@@ -156,6 +161,18 @@ LOGOUT_REDIRECT_URL = '/' # 로그아웃 후 리다이렉트 할 페이지
 ACCOUNT_LOGOUT_REDIRECT_URL = '/' #로그아웃 후 리다이렉트 할 페이지
 ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 버튼 클릭 시 자동 로그아웃
 
-ACCOUNT_SIGNUP_FORM_CLASS = 'user.forms.SignupForm'
+# ACCOUNT_SIGNUP_FORM_CLASS = 'user.forms.SignupForm'
 
-SOCIALACCOUNT_AUTO_SIGNUP=False # 구글연동해도 회원가입 따로 받음
+# SOCIALACCOUNT_AUTO_SIGNUP=False # 구글연동해도 회원가입 따로 받음
+
+
+"""
+Google
+클라id : 382470756024-f1gin5nu5hsb2s9jkvqsnh5l0f8eu08u.apps.googleusercontent.com
+비밀키 : Yw_vc2Mi60YAVWVRWx7WG7ov
+
+Naver
+클라id : fbTyu9igwVBVunhin6Ig
+비밀키 : F4a5ufincr
+
+"""

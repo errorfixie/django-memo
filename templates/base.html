@@ -21,8 +21,15 @@
         <div class="flex-container-1">
             <button class="flex-item"></button>
             <button class="flex-item"></button>
+<<<<<<< HEAD
             <button class="flex-item"></button>
             <button class="flex-item" type="submit" form="memosave"></button>
+=======
+            {% comment %} 삭제버튼 {% endcomment %}
+                <button class="flex-item" type = "submit" form = "delete"></button>
+            {% comment %} 수정버튼 {% endcomment %}
+                <button class="flex-item" type = "submit" form = "memosave"></button>
+>>>>>>> b33cf834c0648ec0a5dc07103e0db219965ac642
         </div>
         <div class="flex-container-2">
             <button class="flex-item"></button>
@@ -32,9 +39,19 @@
         </div>
         <div class="flex-container-search">
             <button class="flex-item"></button>
-            <button class="flex-item"></button>
-            <button class="flex-item"></button>
+            {% comment %} 생성 버튼 {% endcomment %}
+            <button class="flex-item" onclick="location.href='/memo/create'"></button>
+            {% comment %} 로그아웃버튼 {% endcomment %}
+                <button class="flex-item" onclick="location.href='/logout'"></button>
             <input type="search" name="search" value="검색" id="">
+            
+        </div>
+        <div>
+            {% if user.nickname %}
+                {{user.nickname}}님이 사용중
+            {%else%}
+                {{user.username}}님이 사용중
+            {% endif %}
         </div>
     </header>
     {% block content %}
