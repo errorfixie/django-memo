@@ -8,33 +8,33 @@
 <section class="flex-container-section-wrap">
     <nav class="flex-container-nav">
         <div class="flex-container-nav-list">
-            {%for memo in memolist%}
-            <div class="menu-block">
+            <div class="menu-block-1">
+                {%for memo in memolist%}
+                <div id="memo-title" value="새로운 메모"></div>
+                <div id="memo-contents"> {{memo.memoNUM.memodate | date:'A H:i' }}</div>
+                {% endfor %}
+            </div>
+            <div class="menu-block-2">
+                <!--여기서 새로 생긴다. 이유는 for문에서 할당하지 않았으니까-->
+                {%for memo in memolist%}
                 <!--{{memo.memoNUM.memodate}}<br>-->
                 {{memo.memoNUM.title | truncatechars:20}}
                 <h1 style="font-weight: bold;">{{memo.memoNUM.contents | truncatechars:20}}</h1>
                 {{memo.memoNUM.memodate | date:'A H:i' }}
-
+                {% endfor %}
             </div>
-            {% endfor %}
-
         </div>
     </nav>
-    <article class="flex-container-section-wrap">
-        <div class="flex-container-section">
-            <div>
-                수정일시 : {{now}}
-                <a href="/logout">로그아웃</a>
-            </div>
-
-            내용출력
-
-            <form method="post" id="memosave">
-                {% csrf_token %}
-                {{form.contents}}
-                {% comment %} <input type="submit" value="메모저장"> {% endcomment %}
-            </form>
+    <article class="flex-container-article">
+        <div class="article-time">
+            수정일시 : {{now}}
+            <a href="/logout">로그아웃</a>
         </div>
+        <form method="post" id="memosave">
+            {% csrf_token %}
+            {{form.contents}}
+            {% comment %} <input type="submit" value="메모저장"> {% endcomment %}
+        </form>
     </article>
 </section>
 {% endblock content %}

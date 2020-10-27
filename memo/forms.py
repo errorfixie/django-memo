@@ -12,9 +12,11 @@ class MemoCreateForm(forms.ModelForm):
 
         widgets = {
             "contents":forms.Textarea(
-                attrs={ 
-                    "class": "input-text-area",
-                
+                attrs={
+                    "class" : "input-text-area",
+                    "onkeyup" : 'printName()',
+                    "cols" : '100',
+                    'rows' : '50',
                 }
             ),
         }
