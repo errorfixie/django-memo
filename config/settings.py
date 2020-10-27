@@ -25,7 +25,10 @@ SECRET_KEY = 'awxkq*j&7q5yj05qhc&)tv(yg97*f2gw!mkfeh7v+^0f%w#4m%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '.ap-northeast-2.compute.amazonaws.com',
+]
 
 
 # Application definition
@@ -135,6 +138,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, ".static_root") # 정적파일보관함
 
 AUTH_USER_MODEL = 'user.User' #abstractUser쓸때 추가해줘야함 //앱이름.모델클래스이름
     
