@@ -38,7 +38,7 @@ class UserLoginView(LoginView):
 
 def KakaoSignInView(request):
     REST_API_KEY = "d9af7226a651272501b0326813ee20f8"
-    REDIRECT_URI = "http://127.0.0.1:8000/kakao/login/callback"
+    REDIRECT_URI = "http://ec2-3-35-209-57.ap-northeast-2.compute.amazonaws.com/kakao/login/callback"
     return HttpResponseRedirect(
         "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id={}&redirect_uri={}".format(REST_API_KEY,REDIRECT_URI)
         )
@@ -53,7 +53,7 @@ def KakaoLoginCallback(request):
 
         code = request.GET.get('code')
         REST_API_KEY = "d9af7226a651272501b0326813ee20f8"
-        REDIRECT_URI = "http://127.0.0.1:8000/kakao/login/callback"
+        REDIRECT_URI = "http://ec2-3-35-209-57.ap-northeast-2.compute.amazonaws.com/kakao/login/callback"
 
         token_request = requests.get(
                 f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&code={code}"
