@@ -5,11 +5,7 @@ class Memo(models.Model):
     title = models.CharField(verbose_name="메모제목",max_length=254, blank = True) #메모제목
     contents = models.TextField(verbose_name="메모내용", blank=True) # 메모내용
     memodate = models.DateTimeField(verbose_name="메모등록날짜", auto_now_add=True) #메모등록날짜
-<<<<<<< HEAD
-    memoupdate = models.DateTimeField(verbose_name="메모수정날짜", auto_now =True, null=True) #메모수정날짜
-=======
     memoupdate = models.DateTimeField(verbose_name="메모수정날짜", auto_now =True, blank=True) #메모수정날짜
->>>>>>> b33cf834c0648ec0a5dc07103e0db219965ac642
 
     def __str__(self):
         return self.contents
