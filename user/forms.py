@@ -48,7 +48,7 @@ class SignupForm(UserCreationForm):
                 "nickname" : forms.TextInput(
                         attrs={
                             # "class":"여기에 css적용"
-                        }
+                                                 }
                     ),
                 "email" : forms.EmailInput(
                         attrs={
@@ -64,6 +64,9 @@ class LoginForm(AuthenticationForm):
         widget=forms.TextInput(
             attrs={
                 # "class":"여기에 css적용"
+                "style":'background-color: black; color: white;',
+                
+                
             }
         )
     )
@@ -72,6 +75,7 @@ class LoginForm(AuthenticationForm):
         widget=forms.PasswordInput(
             attrs={
                 # "class":"여기에 css적용"
+                "style":'background-color: black; color: white;',
             }
         )
     )

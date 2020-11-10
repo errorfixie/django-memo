@@ -8,10 +8,21 @@
 </head>
 
 <body>
+    
+{% comment %} /* Change autocomplete styles in WebKit */ {% endcomment %}
+    <style>
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus {
+        -webkit-text-fill-color: white;
+        -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+        transition: background-color 5000s ease-in-out 0s;
+        }
+    </style>
 
     <form method="POST" action="">
         {% csrf_token %}
-        <fieldset style="background-color: green;">
+        <fieldset>
             <legend>로그인</legend>
             <form method="POST">
                 {% csrf_token %}
@@ -25,7 +36,7 @@
             <a href="{% provider_login_url "google" %}">구글로 계속하기</a> <br>
             <a href="{% provider_login_url "naver" %}">네이버로 계속하기</a> <br>
             <a href="{%url 'kakaosignin' %}">카카오로 계속하기</a>
-
+            
 
         </fieldset>
     </form>

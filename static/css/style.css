@@ -18,6 +18,8 @@ time, mark, audio, video button{
   font: inherit;
   vertical-align: baseline;
 }
+
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -69,7 +71,7 @@ button {
 /* class selector */
 .flex-header-container{
   display: flex;
-  position: fixed;
+  position: absolute;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -240,14 +242,14 @@ button {
 /* section-nav */
 .flex-container-section-wrap {
   display: flex;
-  position: relative;
   background-color: #1e1e1e;
   height: 100%;
   max-height: 100%;
 }
 
 .flex-container-nav{
-  position: flex;
+  display: flex;
+  position: relative;
   background-color: #1e1e1e;
   color: #dbdbdb;
   width: 250px;

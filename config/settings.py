@@ -152,7 +152,7 @@ AUTHENTICATION_BACKENDS = (
 
 )
 
-SITE_ID = 1 # db에 저장될 호스트사이트 ID
+SITE_ID = 2 # db에 저장될 호스트사이트 ID
 
 LOGIN_REDIRECT_URL = '/memo/' ## 로그인 성공 후 리다이렉트 할 페이지
 LOGIN_URL = '/'  ## 로그인되지 않은 사용자가 view요청 시 이동할 페이지

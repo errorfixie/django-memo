@@ -25,20 +25,22 @@
                     {{memo.memoNUM.memodate | date:'A H:i' }}
 
                 </a>
+                {% endfor %}
             </div>
         </div>
     </nav>
     <article class="flex-container-section-wrap">
         <div class="flex-container-section">
             <div>
-                {% if pk_memodate %}
-                저장일시 : {{pk_memodate}}<br>
-                수정일시 : {{pk_memoupdate}}
+                
+                {% if pk_memoupdate  %}
+                    수정일 : {{pk_memoupdate}}
+                {% elif pk_memodate %}
+                    저장일 : {{pk_memodate}}
                 {% else %}
-                현재시각 : {{now}}
+                    현재 : {{now}}
                 {% endif %}
-
-                <h1>Hello world!</h1>
+                
             </div>
 
             {% comment %} 내용출력 {% endcomment %}
