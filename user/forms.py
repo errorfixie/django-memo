@@ -56,15 +56,14 @@ class SignupForm(UserCreationForm):
                         }
                     )
             }
-
-class LoginForm(AuthenticationForm):
+# class가 안먹어서 일단 직접 style 작성
+class LoginForm(AuthenticationForm): 
     username = forms.CharField(
         max_length=254,
         label="ID",
         widget=forms.TextInput(
             attrs={
-                # "class":"여기에 css적용"
-                "style":'background-color: black; color: white;',
+                'style':'width: 230px;',
                 
                 
             }
@@ -74,8 +73,8 @@ class LoginForm(AuthenticationForm):
         label="비밀번호",
         widget=forms.PasswordInput(
             attrs={
-                # "class":"여기에 css적용"
-                "style":'background-color: black; color: white;',
+                'style':'width: 230px;',
+                
             }
         )
     )

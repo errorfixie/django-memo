@@ -1,45 +1,43 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <title>Login</title>
 </head>
 
-<body>
-    
-{% comment %} /* Change autocomplete styles in WebKit */ {% endcomment %}
-    <style>
-        input:-webkit-autofill,
-        input:-webkit-autofill:hover, 
-        input:-webkit-autofill:focus {
-        -webkit-text-fill-color: white;
-        -webkit-box-shadow: 0 0 0px 1000px #000 inset;
-        transition: background-color 5000s ease-in-out 0s;
-        }
-    </style>
+<body class="login-body">
+    {% comment %} /* Change autocomplete styles in WebKit */ {% endcomment %}
+    <div class="login-container">
+        <form method="POST" action="" class="frame-form">
+            {% csrf_token %}
+            <fieldset class="login-fieldset">
+                <form method="POST" class="login-form">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="login-area">
+                        <div style="color: white; font-family: Geogia;">{{field.label}}</div><div class="login-input-area">{{field}}</div>
+                    </div>
+                    {% endfor %}
+                    <div class="button-container">
+                        <button type="submit" value="login">Login</button>
+                        <button type="button" onclick="location.href='{% url "signup" %}'" value="Sign up">Sign up</button>
+                    </div>
+                </form>
+                <div class="allauto-container">
+                    {% load socialaccount %}
+                    {% providers_media_js %}
+                    <a href="{% provider_login_url "google" %}">구글로 계속하기</a>
+                    <a href="{% provider_login_url "naver" %}">네이버로 계속하기</a>
+                    <a href="{%url 'kakaosignin' %}">카카오로 계속하기</a>
+                </div>
 
-    <form method="POST" action="">
-        {% csrf_token %}
-        <fieldset>
-            <legend>로그인</legend>
-            <form method="POST">
-                {% csrf_token %}
-                {{form.as_p}}
-                <input type="submit" value="login">
-                <a href="{% url 'signup'%}">회원가입</a><br>
-            </form>
-
-            {% load socialaccount %}
-            {% providers_media_js %}
-            <a href="{% provider_login_url "google" %}">구글로 계속하기</a> <br>
-            <a href="{% provider_login_url "naver" %}">네이버로 계속하기</a> <br>
-            <a href="{%url 'kakaosignin' %}">카카오로 계속하기</a>
-            
-
-        </fieldset>
-    </form>
+            </fieldset>
+        </form>
+    </div>
 </body>
 
 </html>
